@@ -1,0 +1,34 @@
+@Library('shared_library') _
+import org.mygurukulam.template.*
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout from GitHub') {
+            steps {
+                script {
+                    def url = "https://github.com/shreya-0522/shared_library.git"
+                    def branch = "main"
+                    def tf = new ansibleCI()
+                    tf.checkout(url, branch)
+                }
+            }
+        }
+
+        stage('ansible') {
+            steps {
+                script {
+                    echo "Executing Ansible Command..."
+                    def inventoryPath = "aws_ec2.yml"
+                    def testPlaybookPath = "test.yml"
+                    def ansibleCommand = new ansibleCI()
+                    
+                    withCredentials([sshUserPrivateKey(credentialsId: 'SSH-key-jenkins', keyFileVariable: 'ssh_pem')]) {
+                        ansibleCommand.playrun(inventoryPath, testPlaybookPath, ssh_pem)
+                    }
+                }
+            }
+        }
+    }
+}
