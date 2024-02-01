@@ -10,7 +10,7 @@ pipeline {
         string(name: 'GIT_CREDS', description: 'Enter creds ID to checkout git reposistory')
         string(name: 'INVENTORY_PATH', defaultValue: 'aws_ec2.yml', description: 'Path to Ansible inventory file')
         string(name: 'PLAYBOOK_PATH', defaultValue: 'test.yml', description: 'Path to Ansible test playbook file')
-        string(name: 'CREDS' , defaultValue: 'SSH-key-jenkins', description: 'credential binding ID'
+        string(name: 'CREDS' , defaultValue: 'SSH-key-jenkins', description: 'credential binding ID')
     }
 
     stages {
