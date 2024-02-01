@@ -34,7 +34,7 @@ pipeline {
                     def testPlaybookPath = params.PLAYBOOK_PATH
                     def ansibleCommand = new ansibleCI()
 
-                    withCredentials([sshUserPrivateKey(credentialsId: 'params.CREDS', keyFileVariable: 'ssh_pem')]) {
+                    withCredentials([sshUserPrivateKey(credentialsId: params.CREDS , keyFileVariable: 'ssh_pem')]) {
                         ansibleCommand.playrun(inventoryPath, testPlaybookPath, ssh_pem)
                     }
                 }
