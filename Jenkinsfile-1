@@ -11,7 +11,6 @@ pipeline {
         string(name: 'INVENTORY_PATH', defaultValue: 'aws_ec2.yml', description: 'Path to Ansible inventory file')
         string(name: 'PLAYBOOK_PATH', defaultValue: 'test.yml', description: 'Path to Ansible test playbook file')
         string(name: 'CREDS' , defaultValue: 'SSH-key-jenkins', description: 'credential binding ID'
-        string(name: 'KEY_FILE_VARIABLE' , defaultValue: 'ssh_pem' , description: 'credential binding variable file'
     }
 
     stages {
@@ -35,7 +34,7 @@ pipeline {
                     def testPlaybookPath = params.PLAYBOOK_PATH
                     def ansibleCommand = new ansibleCI()
 
-                    withCredentials([sshUserPrivateKey(credentialsId: 'params.CREDS', keyFileVariable: 'params.KEY_FILE_VARIABLE')]) {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'params.CREDS', keyFileVariable: 'ssh_pem')]) {
                         ansibleCommand.playrun(inventoryPath, testPlaybookPath, ssh_pem)
                     }
                 }
