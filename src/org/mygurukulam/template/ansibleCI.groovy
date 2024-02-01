@@ -8,9 +8,9 @@ def hi = new org.mygurukulam.common.Hello()
 hi.hello(name)
 }
 
-def checkout( String url ,String branch , Map config = [:] ) {
+def checkout( String url ,String branch , String creds, Map config = [:] ) {
    def git = new org.mygurukulam.common.Checkout()
-    git.call(url , branch)
+    git.call(url , branch , creds)
 }
 
 def playrun(String inventoryPath, String testPlaybookPath, String ssh_pem, Map config = [:] ) { 
